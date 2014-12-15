@@ -968,7 +968,7 @@ class MeioUploadBehavior extends ModelBehavior {
 		$phpThumb = new phpthumb;
                 /* change this to upload images in thumbs*/
                 
-		$phpThumb->setSourceFilename("tagroom_cake/app/webroot/".$source);
+		$phpThumb->setSourceFilename(Router::url('/')."app/webroot/".$source);
 		$phpThumb->config_disable_debug = !Configure::read('debug');
 
 		if ($params['maxDimension'] == 'w') {
