@@ -34,13 +34,13 @@ class MeioUploadBehavior extends ModelBehavior {
 		'useTable' => true,
 		'createDirectory' => true,
 		'encryptedFolder' => false,
-		'dir' => 'uploads{DS}{ModelName}{DS}{fieldName}',
+		'dir' => 'img{DS}uploads{DS}{ModelName}{DS}{fieldName}',
 		'folderPermission' => 0755, // Set permission of dynamically created folder
 		'folderAsField' => null, // Can be the name of any field in $this->data
 		'uploadName' => null, // Can also be the tokens {ModelName} or {fieldName}
 		'filePermission' => 0755, // Set permission of uploaded files in the server
 		'removeOriginal' => false,
-		'maxSize' => 2097152, // 2MB
+		'maxSize' => 7340032, // 7MB //2097152, // 2MB
 		'allowedMime' => array('image/jpeg', 'image/pjpeg', 'image/png', 'image/gif', 'image/bmp', 'image/x-icon', 'image/vnd.microsoft.icon'),
 		'allowedExt' => array('.jpg', '.jpeg', '.png', '.gif', '.bmp', '.ico'),
 		'default' => false, // Not sure what this does
@@ -961,13 +961,14 @@ class MeioUploadBehavior extends ModelBehavior {
 				'zoomCrop' => false
 			),
 			$params);
-
+		
 		// Import phpThumb class
 		$test = App::import('Vendor','phpthumb', array('file' => 'phpThumb' . DS . 'phpthumb.class.php'));
-
 		// Configuring thumbnail settings
 		$phpThumb = new phpthumb;
-		$phpThumb->setSourceFilename($source);
+                /* change this to upload images in thumbs*/
+                
+		$phpThumb->setSourceFilename("tagroom_cake/app/webroot/".$source);
 		$phpThumb->config_disable_debug = !Configure::read('debug');
 
 		if ($params['maxDimension'] == 'w') {
