@@ -967,8 +967,15 @@ class MeioUploadBehavior extends ModelBehavior {
 		// Configuring thumbnail settings
 		$phpThumb = new phpthumb;
                 /* change this to upload images in thumbs*/
-                
-		$phpThumb->setSourceFilename(Router::url('/')."app/webroot/".$source);
+
+		$whitelist = array('127.0.0.1', "::1");
+
+		$source_routes =  Router::url('/');
+		if(in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+			$source_routes = Router::url('/')."app/webroot/";
+		}
+          
+		$phpThumb->setSourceFilename($source_routes.$source);
 		$phpThumb->config_disable_debug = !Configure::read('debug');
 
 		if ($params['maxDimension'] == 'w') {
